@@ -6,7 +6,15 @@ function Dinosaur(species, weight, height, diet, where, when, fact) {
   this.diet = diet
   this.where = where
   this.when = when
-  this.fact = fact
+  this.fact = [fact]
+  console.log(this.fact);
+
+  this.compareWeight = function(humanWeight) {
+    let flavorText;
+    let difference = Math.abs(humanWeight - this.weight);
+    this.weight < humanWeight ? flavorText = 'more' : flavorText = 'less';
+    this.fact.push(`You weigh ${flavorText} than the dino by ${difference}lbs!`);
+  }
 }
 
 // Create Dino Objects
@@ -28,15 +36,9 @@ console.log(dinoData);
 function Human(name, weight, feet, inches, diet) {
   this.name = name;
   this.weight = weight;
-  this.feet = feet;
-  this.inches = inches;
   this.diet = diet;
   this.height = parseInt((feet * 12) + inches);
 }
-
-// Create Dino Compare Method 1
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
 
 // Create Dino Compare Method 2
 // NOTE: Weight in JSON file is in lbs, height in inches.
@@ -65,7 +67,12 @@ form.addEventListener('submit', (event) => {
   const diet = document.querySelector('#diet').value;
 
   let person = new Human(name, weight, feet, inches, diet);
-  console.log(person);
 
   form.style.display = 'none';
+
+  dinoData.forEach(function(dino) {
+    dino.compareWeight(person.weight);
+  });
+
+  console.log(dinoData);
 })
