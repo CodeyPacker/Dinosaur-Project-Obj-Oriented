@@ -31,40 +31,41 @@ function Human(name, weight, feet, inches, diet) {
   this.feet = feet;
   this.inches = inches;
   this.diet = diet;
+  this.height = parseInt((feet * 12) + inches);
 }
 
+// Create Dino Compare Method 1
+// NOTE: Weight in JSON file is in lbs, height in inches.
+
+
+// Create Dino Compare Method 2
+// NOTE: Weight in JSON file is in lbs, height in inches.
+
+
+// Create Dino Compare Method 3
+// NOTE: Weight in JSON file is in lbs, height in inches.
+
+
+// Generate Tiles for each Dino in Array
+
+    // Add tiles to DOM
+
+// Remove form from screen
+
+
+// On button click, prepare and display infographic
 const form = document.querySelector('#dino-compare');
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const name = document.querySelector('#name').value;
-  const weight = document.querySelector('#weight').value;
-  const feet = document.querySelector('#feet').value;
-  const inches = document.querySelector('#inches').value;
+  const weight = parseInt(document.querySelector('#weight').value);
+  const feet = parseInt(document.querySelector('#feet').value);
+  const inches = parseInt(document.querySelector('#inches').value);
   const diet = document.querySelector('#diet').value;
 
   let person = new Human(name, weight, feet, inches, diet);
   console.log(person);
+
+  form.style.display = 'none';
 })
-
-
-  // Create Dino Compare Method 1
-  // NOTE: Weight in JSON file is in lbs, height in inches.
-
-
-  // Create Dino Compare Method 2
-  // NOTE: Weight in JSON file is in lbs, height in inches.
-
-
-  // Create Dino Compare Method 3
-  // NOTE: Weight in JSON file is in lbs, height in inches.
-
-
-  // Generate Tiles for each Dino in Array
-
-      // Add tiles to DOM
-
-  // Remove form from screen
-
-
-// On button click, prepare and display infographic
