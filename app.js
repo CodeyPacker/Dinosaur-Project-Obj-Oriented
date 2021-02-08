@@ -7,6 +7,7 @@ function Dinosaur(species, weight, height, diet, where, when, fact) {
   this.where = where
   this.when = when
   this.fact = [fact]
+  this.imgSrc = `/images/${this.species}`
   console.log(this.fact);
 
   this.compareWeight = function(humanWeight) {
@@ -14,6 +15,13 @@ function Dinosaur(species, weight, height, diet, where, when, fact) {
     let difference = Math.abs(humanWeight - this.weight);
     this.weight < humanWeight ? flavorText = 'more' : flavorText = 'less';
     this.fact.push(`You weigh ${flavorText} than the dino by ${difference}lbs!`);
+  }
+
+  this.compareHeight = function(humanHeight) {
+    let flavorText;
+    let difference = Math.abs(humanHeight - this.height)
+    this.height < humanHeight ? flavorText = 'more' : flavorText = 'less';
+    this.fact.push(`Your height is ${flavorText} than the dino by ${difference} inches!`);
   }
 }
 
@@ -30,19 +38,13 @@ dinoData.push(
   new Dinosaur('Pigeon', .5, 29, 'herbavor', 'World Wide', 'Halocene', 'All birds are living dinosaurs.')
 );
 
-console.log(dinoData);
-
 // Create Human Object
-function Human(name, weight, feet, inches, diet) {
+function Human(name, weight, height, diet) {
   this.name = name;
   this.weight = weight;
   this.diet = diet;
-  this.height = parseInt((feet * 12) + inches);
+  this.height = height;
 }
-
-// Create Dino Compare Method 2
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
 
 // Create Dino Compare Method 3
 // NOTE: Weight in JSON file is in lbs, height in inches.
@@ -65,14 +67,18 @@ form.addEventListener('submit', (event) => {
   const feet = parseInt(document.querySelector('#feet').value);
   const inches = parseInt(document.querySelector('#inches').value);
   const diet = document.querySelector('#diet').value;
+  const height = parseInt((feet * 12) + inches);
 
-  let person = new Human(name, weight, feet, inches, diet);
+
+  let person = new Human(name, weight, height, diet);
 
   form.style.display = 'none';
 
-  dinoData.forEach(function(dino) {
+  dinoData.forEach((dino) => {
     dino.compareWeight(person.weight);
-  });
+    dino.compareHeight(person.height);
+  })
+
 
   console.log(dinoData);
 })
