@@ -176,6 +176,7 @@ form.addEventListener("submit", (event) => {
 
   // Run all compare methods for each dino to generate facts
   dinoData.forEach((dino) => {
+    if (dino.species == 'Pigeon') { return; }
     dino.compareWeight(person.weight);
     dino.compareHeight(person.height);
     dino.compareDiet(person.diet);
