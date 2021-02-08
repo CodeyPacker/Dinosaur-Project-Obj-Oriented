@@ -8,7 +8,6 @@ function Dinosaur(species, weight, height, diet, where, when, fact) {
   this.when = when
   this.fact = [fact]
   this.imgSrc = `/images/${this.species}`
-  console.log(this.fact);
 
   this.compareWeight = function(humanWeight) {
     let flavorText;
@@ -22,6 +21,15 @@ function Dinosaur(species, weight, height, diet, where, when, fact) {
     let difference = Math.abs(humanHeight - this.height)
     this.height < humanHeight ? flavorText = 'more' : flavorText = 'less';
     this.fact.push(`Your height is ${flavorText} than the dino by ${difference} inches!`);
+  }
+
+  this.compareDiet = function(humanDiet) {
+    let flavorText = '';
+
+    this.diet === humanDiet
+      ? flavorText = `You have the same diet as the ${this.species}`
+      : flavorText = `The ${this.species} is a ${this.diet}`
+    this.fact.push(flavorText);
   }
 }
 
@@ -46,10 +54,6 @@ function Human(name, weight, height, diet) {
   this.height = height;
 }
 
-// Create Dino Compare Method 3
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
-
 // Generate Tiles for each Dino in Array
 
     // Add tiles to DOM
@@ -66,7 +70,7 @@ form.addEventListener('submit', (event) => {
   const weight = parseInt(document.querySelector('#weight').value);
   const feet = parseInt(document.querySelector('#feet').value);
   const inches = parseInt(document.querySelector('#inches').value);
-  const diet = document.querySelector('#diet').value;
+  const diet = document.querySelector('#diet').value.toLowerCase();
   const height = parseInt((feet * 12) + inches);
 
 
@@ -77,8 +81,8 @@ form.addEventListener('submit', (event) => {
   dinoData.forEach((dino) => {
     dino.compareWeight(person.weight);
     dino.compareHeight(person.height);
+    dino.compareDiet(person.diet);
   })
-
 
   console.log(dinoData);
 })
