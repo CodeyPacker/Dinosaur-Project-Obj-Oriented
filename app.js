@@ -7,13 +7,13 @@ function Dinosaur(species, weight, height, diet, where, when, fact) {
   this.where = where
   this.when = when
   this.fact = [fact]
-  this.imgSrc = `/images/${this.species}`
+  this.imgSrc = `images/${this.species}`
 
   this.compareWeight = function(humanWeight) {
     let flavorText;
     let difference = Math.abs(humanWeight - this.weight);
     this.weight < humanWeight ? flavorText = 'more' : flavorText = 'less';
-    this.fact.push(`You weigh ${flavorText} than the dino by ${difference}lbs!`);
+    this.fact.push(`You weigh ${flavorText} than the dino by ${difference} lbs!`);
   }
 
   this.compareHeight = function(humanHeight) {
@@ -54,17 +54,49 @@ function Human(name, weight, height, diet) {
   this.height = height;
 }
 
-// Generate Tiles for each Dino in Array
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
-    // Add tiles to DOM
+// Generate Tiles for each Dino in Array
+function generateTiles(dinoArray, humanObj) {
+  const grid = document.querySelector('#grid');
+  dinoArray.forEach(function(d, i) {
+    const randomNum = getRandomInt(0, d.fact.length);
+
+    const gridChild = `
+      <div class="grid-item ${i === 4 ? 'item-4' : ''}">
+        <h3>${d.species}</h3>
+        <img src="${d.imgSrc.toLowerCase()}.png" alt="${d.species}"/>
+        <p>${d.fact[randomNum]}</p>
+      </div>`
+    grid.innerHTML += gridChild;
+  });
+
+  const halfwayNode = document.querySelector('.item-4');
+
+  // create Human node to be inserted
+  const humanGridItem = document.createElement('div');
+  const humanName = document.createElement('h3');
+  const humanImg = document.createElement('img');
+  humanGridItem.classList.add('grid-item');
+  humanName.innerHTML = `${humanObj.name}`;
+  humanImg.setAttribute('src', 'images/human.png');
+  humanGridItem.append(humanName);
+  humanGridItem.append(humanImg);
+  grid.insertBefore(humanGridItem, halfwayNode);
+}
+
 
 // Remove form from screen
-
+const form = document.querySelector('#dino-compare');
+const hideForm = () => form.style.display = 'none';
 
 // On button click, prepare and display infographic
-const form = document.querySelector('#dino-compare');
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', event => {
   event.preventDefault();
   const name = document.querySelector('#name').value;
   const weight = parseInt(document.querySelector('#weight').value);
@@ -72,17 +104,16 @@ form.addEventListener('submit', (event) => {
   const inches = parseInt(document.querySelector('#inches').value);
   const diet = document.querySelector('#diet').value.toLowerCase();
   const height = parseInt((feet * 12) + inches);
-
-
   let person = new Human(name, weight, height, diet);
 
-  form.style.display = 'none';
+  hideForm();
 
+  // Run all compare methods for each dino to generate facts
   dinoData.forEach((dino) => {
     dino.compareWeight(person.weight);
     dino.compareHeight(person.height);
     dino.compareDiet(person.diet);
   })
 
-  console.log(dinoData);
+  generateTiles(dinoData, person);
 })
