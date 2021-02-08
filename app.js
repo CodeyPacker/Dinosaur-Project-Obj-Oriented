@@ -1,14 +1,12 @@
 // Create Dino Constructor
 function Dinosaur(species, weight, height, diet, where, when, fact) {
-  return {
-    species: species,
-    weight: weight,
-    height: height,
-    diet: diet,
-    where: where,
-    when: when,
-    fact: fact
-  };
+  this.species = species
+  this.weight = weight
+  this.height = height
+  this.diet = diet
+  this.where = where
+  this.when = when
+  this.fact = fact
 }
 
 // Create Dino Objects
@@ -26,30 +24,29 @@ dinoData.push(
 
 console.log(dinoData);
 
-  // Create Human Object
+// Create Human Object
+function Human(name, weight, feet, inches, diet) {
+  this.name = name;
+  this.weight = weight;
+  this.feet = feet;
+  this.inches = inches;
+  this.diet = diet;
+}
+
 const form = document.querySelector('#dino-compare');
 
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const name = document.querySelector('#name').value;
+  const weight = document.querySelector('#weight').value;
+  const feet = document.querySelector('#feet').value;
+  const inches = document.querySelector('#inches').value;
+  const diet = document.querySelector('#diet').value;
 
-
-form.addEventListener('submit', () => {
-
+  let person = new Human(name, weight, feet, inches, diet);
+  console.log(person);
 })
-  // Use IIFE to get human data from form
-// const human = ((name, feet, inches, weight, diet) => {
-//   let name;
-//   let feet;
-//   let inches;
-//   let weight;
-//   let diet;
 
-//   return {
-//     name,
-//     feet,
-//     inches,
-//     weight,
-//     diet
-//   }
-// })();
 
   // Create Dino Compare Method 1
   // NOTE: Weight in JSON file is in lbs, height in inches.
