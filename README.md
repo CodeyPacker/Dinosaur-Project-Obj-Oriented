@@ -1,4 +1,4 @@
-Live Projcet: file:///Users/cody.packer/Sites/Personal/Dinosaur-Project-Obj-Oriented/index.html
+Live Project: file:///Users/cody.packer/Sites/Personal/Dinosaur-Project-Obj-Oriented/index.html
 
 # Object Oriented Javascript 
 
